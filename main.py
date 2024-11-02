@@ -1,6 +1,6 @@
 # Dependencies
 from datetime import date
-from shutil import copyfile, copytree
+from shutil import copyfile, copytree, make_archive, rmtree
 from time import sleep as wait
 from colorama import Fore
 
@@ -8,20 +8,29 @@ from colorama import Fore
 bk_date = str(date.today()) # Date of the backup (YYYY-MM-DD)
 
 # Functions
-def IsFile():
+def IsFile() -> None:
     path_input: str = str(input(" > Input PATH: "))
     file_name: str = str(input(" > Input File name & format: "))
     file_total: str = path_input + "\\" + file_name
     path_output: str = str(input(" > Output PATH: ")) + "\\" + bk_date + file_name
     print(path_output)
     copyfile(file_total, path_output)
-def IsDirectory():
+def IsDirectory() -> None:
     path_input: str = str(input(" > Input PATH: "))
     file_name: str = str(input(" > Input directory (new) name: "))
     path_output: str = str(input(" > Output PATH: ")) + "\\" + bk_date + file_name
-    print(path_output)
-    copytree(path_input, path_output)
-def CustomText(string: str):
+    extension_for_bk: str = str(input(" > Input the extension for the directory [zip, tar, gz]: "))
+    
+    # Will make a directory and a zip file with the directory
+    try:
+        copytree(path_input, path_output) # Copy the directory
+        make_archive(path_output, extension_for_bk, path_output) # Make a zip file with the directory
+        rmtree(path_output) # Remove the non-zipped directory
+    except (Exception) as error:
+        print(Fore.RED + str(error) + Fore.RESET)
+    
+    print(f"\n{Fore.GREEN}Done!{Fore.RESET}\nNEW DIRECTORY: {path_output}\n")
+def CustomText(string: str) -> None:
     wait(0.5)
     size: int = len(string) + 4
     print(Fore.MAGENTA + "-"*size + Fore.RESET)
@@ -29,7 +38,7 @@ def CustomText(string: str):
     print(Fore.MAGENTA + "-"*size + Fore.RESET)
 
 # Isolate GUI Function
-def GUI(optionslist:list):
+def GUI(optionslist: list) -> None:
     """
     :param optionslist: A String List to show in the menu
     :varia select: The User's Choice
