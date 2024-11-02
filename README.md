@@ -1,6 +1,11 @@
 # BackPY
 A Python app that makes BackUps easier!
 
+# Version... What is new???
+
+Version: 2.0
+- Just added .zip integration to BackPY
+
 # Dependencies
 
 colorama
