@@ -17,3 +17,6 @@ GitHub: https://github.com/pgozetto
 Instagram: https://www.instagram.com/pedrogozetto/
 X/Twitter: https://x.com/PedroGozetto
 
+# Version
+
+2.0.0
